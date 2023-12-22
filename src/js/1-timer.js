@@ -2,6 +2,8 @@
 
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 
 const input = document.querySelector('#datetime-picker');
 
@@ -24,8 +26,13 @@ const options = {
     console.log(selectedDates[0]);
 
     if (options.defaultDate > selectedDates[0]) {
+      iziToast.error({
+        title: 'Error',
+        message: 'Please choose a date in the future',
+        position: 'topRight',
+        backgroundColor: '#EF4040',
+      });
       btnStart.disabled = true;
-      return window.alert('Please choose a date in the future');
     } else {
       btnStart.disabled = false;
       userSelectedDate = selectedDates[0];
@@ -41,21 +48,28 @@ input.addEventListener('focus', () => {
 });
 
 btnStart.addEventListener('click', () => {
-  const currentDateTime = new Date().getTime();
   const selectedDateTime = userSelectedDate.getTime();
 
-  setInterval(() => {
-    let different = selectedDateTime - currentDateTime - 1000;
-    console.log(different);
+  const timer = setInterval(() => {
+    const currentDateTime = new Date().getTime();
+    const different = selectedDateTime - currentDateTime - 1000;
 
     const result = convertMs(different);
 
-    daysTimer.textContent = `${result.days}`;
-    hoursTimer.textContent = `${result.hours}`;
-    minsTimer.textContent = `${result.minutes}`;
-    secsTimer.textContent = `${result.seconds}`;
+    daysTimer.textContent = `${pad(result.days)}`;
+    hoursTimer.textContent = `${pad(result.hours)}`;
+    minsTimer.textContent = `${pad(result.minutes)}`;
+    secsTimer.textContent = `${pad(result.seconds)}`;
+
+    if (different < 300) {
+      clearInterval(timer);
+    }
   }, 1000);
 });
+
+function pad(value) {
+  return String(value).padStart(2, '0');
+}
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
