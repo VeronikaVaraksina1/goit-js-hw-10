@@ -13,7 +13,10 @@
     />
 
     
-    <script type="module" crossorigin src="/goit-js-hw-10/assets/modulepreload-polyfill-ec808ebb.js"></script>
+    <script type="module" crossorigin src="/goit-js-hw-10/commonHelpers.js"></script>
+    <link rel="modulepreload" crossorigin href="/goit-js-hw-10/assets/modulepreload-polyfill-ec808ebb.js">
+    <link rel="modulepreload" crossorigin href="/goit-js-hw-10/assets/vendor-992cd48f.js">
+    <link rel="stylesheet" href="/goit-js-hw-10/assets/vendor-f90250d9.css">
     <link rel="stylesheet" href="/goit-js-hw-10/assets/styles-43ae2f18.css">
   </head>
   <body>
@@ -22,6 +25,28 @@
       <li><a href="./index.html">Home page</a></li>
     </ul>
 
-    <script type="module" href="./js/1-timer.js"></script>
+    <input type="text" id="datetime-picker" />
+    <button type="button" data-start>Start</button>
+
+    <div class="timer">
+      <div class="field">
+        <span class="value" data-days>00</span>
+        <span class="label">Days</span>
+      </div>
+      <div class="field">
+        <span class="value" data-hours>00</span>
+        <span class="label">Hours</span>
+      </div>
+      <div class="field">
+        <span class="value" data-minutes>00</span>
+        <span class="label">Minutes</span>
+      </div>
+      <div class="field">
+        <span class="value" data-seconds>00</span>
+        <span class="label">Seconds</span>
+      </div>
+    </div>
+
+    
   </body>
 </html>
