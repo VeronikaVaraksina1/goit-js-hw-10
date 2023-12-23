@@ -23,14 +23,11 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    console.log(selectedDates[0]);
-
     if (options.defaultDate > selectedDates[0]) {
       iziToast.error({
         title: 'Error',
         message: 'Please choose a date in the future',
         position: 'topRight',
-        backgroundColor: '#EF4040',
       });
       btnStart.disabled = true;
     } else {
@@ -44,24 +41,23 @@ const datePicker = flatpickr(input, options);
 
 input.addEventListener('focus', () => {
   datePicker.config.defaultDate = new Date();
-  console.log(datePicker.config.defaultDate);
 });
 
 btnStart.addEventListener('click', () => {
-  const selectedDateTime = userSelectedDate.getTime();
-
   const timer = setInterval(() => {
+    const selectedDateTime = userSelectedDate.getTime();
     const currentDateTime = new Date().getTime();
     const different = selectedDateTime - currentDateTime - 1000;
-
     const result = convertMs(different);
 
-    daysTimer.textContent = `${pad(result.days)}`;
-    hoursTimer.textContent = `${pad(result.hours)}`;
-    minsTimer.textContent = `${pad(result.minutes)}`;
-    secsTimer.textContent = `${pad(result.seconds)}`;
+    const { days, hours, minutes, seconds } = result;
 
-    if (different < 300) {
+    daysTimer.textContent = pad(days);
+    hoursTimer.textContent = pad(hours);
+    minsTimer.textContent = pad(minutes);
+    secsTimer.textContent = pad(seconds);
+
+    if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
       clearInterval(timer);
     }
   }, 1000);
@@ -89,7 +85,3 @@ function convertMs(ms) {
 
   return { days, hours, minutes, seconds };
 }
-
-// console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
-// console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
-// console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}

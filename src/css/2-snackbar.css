@@ -1,0 +1,16 @@
+button[type='submit'] {
+  display: inline-block;
+  padding: 8px 16px;
+  border: transparent;
+  border-radius: 8px;
+  outline: transparent;
+
+  font-family: inherit;
+  color: #ffffff;
+  background-color: #4e75ff;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+
+  transition: background-color 250ms ease-in;
+}
