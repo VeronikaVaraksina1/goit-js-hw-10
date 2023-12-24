@@ -43,7 +43,9 @@ input.addEventListener('focus', () => {
   datePicker.config.defaultDate = new Date();
 });
 
-btnStart.addEventListener('click', () => {
+btnStart.addEventListener('click', onStartTimer);
+
+function onStartTimer() {
   const timer = setInterval(() => {
     const selectedDateTime = userSelectedDate.getTime();
     const currentDateTime = new Date().getTime();
@@ -57,11 +59,11 @@ btnStart.addEventListener('click', () => {
     minsTimer.textContent = pad(minutes);
     secsTimer.textContent = pad(seconds);
 
-    if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
+    if (days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0) {
       clearInterval(timer);
     }
   }, 1000);
-});
+}
 
 function pad(value) {
   return String(value).padStart(2, '0');
